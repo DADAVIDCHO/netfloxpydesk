@@ -4,6 +4,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTime, QMetaObject, QObject, QPoint, QRect, QSize, QTime, QUrl, Qt, QEvent)
 from PyQt6.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, QIcon, QKeySequence, QLinearGradient, QPalette, QPainter, QPixmap, QRadialGradient)
 from PyQt6.QtWidgets import *
+from movies_module import MovieListPage
 
 # GUI FILE
 from app_modules import *
@@ -27,13 +28,13 @@ class MainWindow(QMainWindow):
         ## ==> END ##
 
         ## SET ==> WINDOW TITLE
-        self.setWindowTitle('Main Window - Python Base')
-        UIFunctions.labelTitle(self, 'Main Window - Python Base')
+        self.setWindowTitle('NetfloxPyDesk - David Mendoza')
+        UIFunctions.labelTitle(self, 'NetfloxPyDesk - David Mendoza')
         UIFunctions.labelDescription(self, 'Mi Programa')
         ## ==> END ##
 
         ## WINDOW SIZE ==> DEFAULT SIZE
-        startSize = QSize(1000, 720)
+        startSize = QSize(1020, 700)
         self.resize(startSize)
         self.setMinimumSize(startSize)
         # UIFunctions.enableMaximumSize(self, 500, 720)
@@ -50,11 +51,12 @@ class MainWindow(QMainWindow):
         self.ui.stackedWidget.setMinimumWidth(20)
         UIFunctions.addNewMenu(self, "HOME", "btn_home", "url(:/20x20/icons/20x20/cil-home.png)", True)
         UIFunctions.addNewMenu(self, "Add User", "btn_new_user", "url(:/16x16/icons/16x16/cil-user-follow.png)", True)
+        UIFunctions.addNewMenu(self, "Movies", "btn_movies", "url(:/16x16/icons/16x16/cil-movie.png)", True)
         UIFunctions.addNewMenu(self, "Custom Widgets", "btn_widgets", "url(:/16x16/icons/16x16/cil-equalizer.png)", False)
         ## ==> END ##
 
         # START MENU => SELECTION
-        UIFunctions.selectStandardMenu(self, "btn_home")
+        UIFunctions.selectStandardMenu(self, "btn_movies")
         ## ==> END ##
 
         ## ==> START PAGE
@@ -62,7 +64,7 @@ class MainWindow(QMainWindow):
         ## ==> END ##
 
         ## USER ICON ==> SHOW HIDE
-        UIFunctions.userIcon(self, "SC", "", True)
+        UIFunctions.userIcon(self, "DM", "", True)
         ## ==> END ##
 
 
@@ -143,6 +145,18 @@ class MainWindow(QMainWindow):
             UIFunctions.resetStyle(self, "btn_new_user")
             UIFunctions.labelPage(self, "New User")
             btnWidget.setStyleSheet(UIFunctions.selectMenu(btnWidget.styleSheet()))
+            
+        # PAGE MOVIES
+        if btnWidget.objectName() == "btn_movies":
+            
+            self.movie_list_page = MovieListPage()
+            self.ui.stackedWidget.addWidget(self.movie_list_page)
+            
+            self.ui.stackedWidget.setCurrentWidget(self.movie_list_page)
+            UIFunctions.resetStyle(self, "btn_movies")
+            UIFunctions.labelPage(self, "Movies")
+            UIFunctions.labelDescription(self, "List_of_movie")
+            btnWidget.setStyleSheet(UIFunctions.selectMenu(btnWidget.styleSheet()))            
 
         # PAGE WIDGETS
         if btnWidget.objectName() == "btn_widgets":
